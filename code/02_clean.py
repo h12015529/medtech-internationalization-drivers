@@ -12,7 +12,7 @@ Output
 ------
 data/processed/panel_clean.parquet
     One row per firm-year. All Compustat Global variables as columns.
-    Filtered to EUR reporting currency. Sorted by gvkey, fyear.
+    All currencies kept (EUR filter removed). Sorted by gvkey, fyear.
     Ready for variable construction and analysis.
 
 What this script does
@@ -22,7 +22,7 @@ What this script does
 3.  Read all fyear_*.parquet files and concatenate
 4.  Standardize column names (lowercase, strip whitespace)
 5.  Drop exact duplicate rows
-6.  Filter to EUR reporting currency (ensures monetary comparability)
+6.  6.  Filter to 5 target Med-Tech firms by GVKEY)
 7.  Drop rows missing gvkey or fyear (panel identifiers)
 8.  Convert object columns to numeric where possible
 9.  Ensure fyear is integer
@@ -32,16 +32,9 @@ What this script does
 
 Currency note
 -------------
-Compustat Global does NOT convert to a common currency — each firm reports
-in its own local/reporting currency. Filtering to EUR ensures that monetary
-variables (at, sale, ib, dltt, etc.) are directly comparable across firms.
-
-This filter is appropriate for DACH-region SME samples (Austria, Germany).
-Switzerland (CHE) reports in CHF and will be EXCLUDED by this filter.
-If you need Swiss firms, either:
-  - Remove the currency filter and use only ratios (RoA, leverage, R&D intensity)
-    which are currency-neutral since numerator and denominator match.
-  - Add a CHF→EUR conversion using comp_global_daily.g_exrt_mth.
+EUR filter removed. All currencies (EUR, USD, SEK) kept.
+ROA, R&D intensity and leverage are currency-neutral ratios —
+numerator and denominator are in the same currency.
 
 Key lessons from live demo
 --------------------------

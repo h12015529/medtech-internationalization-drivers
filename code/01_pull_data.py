@@ -2,7 +2,7 @@
 01_pull_data.py
 ---------------
 Pull ALL Compustat Global annual variables from WRDS.
-Fiscal years 2015–2024, all geographies, all firms.
+Fiscal years 2015–2025, 5 Med-Tech firms (Siemens Healthineers, Sartorius, Carl Zeiss Meditec, Smith & Nephew, Getinge).
 
 Output
 ------
@@ -10,7 +10,7 @@ data/raw/<YYYY-MM-DD_HH-MM-SS>/
     fyear_2015.parquet
     fyear_2016.parquet
     ...
-    fyear_2024.parquet
+    fyear_2025.parquet
     column_schema.csv
     pull_metadata.txt
 
@@ -20,8 +20,7 @@ Each run creates a new timestamped folder — every pull is preserved.
 Key lessons from live demo
 --------------------------
 - Compustat Global uses datafmt = 'HIST_STD' (not 'STD' like North America)
-- Pull is broad (all firms, all sectors). Med-Tech filter (SIC 3841/3845)
-  is applied in 02_clean.py.
+- Pull is filtered to 5 Med-Tech firms by GVKEY. Filter applied in 02_clean.py.
 - Credentials loaded from .env via find_env() — works from any working directory
 - from datetime import datetime (not import datetime) to avoid AttributeError
 - Relative paths only — never hardcode C:/Users/...
