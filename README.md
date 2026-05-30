@@ -1,11 +1,11 @@
-# Internationalisierung börsennotierter Medizintechnik-Unternehmen
+# Profitabilität börsennotierter Medizintechnik-Unternehmen
 ### ExInt II: Research Designs in SME Research | WU Vienna | SS 2026
 
 Autor: Thomas Lackner (h12015529)
 
 ## Research Question
 
-> Welchen Einfluss haben Firmengröße und F&E-Intensität auf den Internationalisierungsgrad börsennotierter Medizintechnik-Unternehmen?
+> Welchen Einfluss haben Firmengröße und F&E-Intensität auf die Profitabilität (ROA) börsennotierter Medizintechnik-Unternehmen?
 
 ## Theoretischer Hintergrund
 
@@ -17,9 +17,9 @@ Autor: Thomas Lackner (h12015529)
 
 ## Hypothesen
 
-- **H1:** Der Internationalisierungsgrad steht in einem positiven Zusammenhang mit der Firmengröße. *(Test: β(Größe) > 0)*
-- **H2:** Eine höhere F&E-Intensität geht mit einem höheren Internationalisierungsgrad einher. *(Test: β(F&E-Intensität) > 0)*
-- **H3:** Profitablere Medizintechnik-Unternehmen weisen einen höheren Internationalisierungsgrad auf als weniger profitable. *(Test: β(ROA) > 0)*
+- **H1:** Größere Firmen weisen eine höhere Profitabilität (ROA) auf. *(Test: β(Größe) > 0)*
+- **H2:** Eine höhere F&E-Intensität geht mit höherer Profitabilität (ROA) einher. *(Test: β(F&E-Intensität) > 0)*
+- **H3:** Internationalisierung hat einen signifikanten Einfluss auf ROA. *(Kontrollhypothese)*
 
 ## Data
 
@@ -29,8 +29,10 @@ Autor: Thomas Lackner (h12015529)
 | Heruntergeladen | 26.05.2026 |
 | Lizenz | WRDS subscriber agreement |
 | Sample | Börsennotierte Medizintechnik-Unternehmen (SIC 3841 & 3845) |
-| Zeitraum | 2005–2025 |
+| Zeitraum | 2015–2025 |
 | Analyseeinheit | Firm-year |
+| Raw rows     | 55                                  |
+| Clean rows   | 55                                  |
 
 **Zentrale Variablen:**
 
