@@ -17,9 +17,17 @@ Autor: Thomas Lackner (h12015529)
 
 ## Hypothesen
 
-- **H1:** Größere Firmen weisen eine höhere Profitabilität (ROA) auf. *(Test: β(Größe) > 0)*
-- **H2:** Eine höhere F&E-Intensität geht mit höherer Profitabilität (ROA) einher. *(Test: β(F&E-Intensität) > 0)*
-- **H3:** Internationalisierung hat einen signifikanten Einfluss auf ROA. *(Kontrollhypothese)*
+- **H1:** Je größer ein Medizintechnikunternehmen (gemessen als 
+logarithmierte Bilanzsumme, log(AT)), desto höher ist seine 
+Profitabilität (ROA), da größere Unternehmen über mehr Ressourcen, 
+Skaleneffekte und Marktmacht verfügen.
+- **H2:** Je höher die F&E-Intensität eines Medizintechnikunternehmens 
+(gemessen als F&E-Ausgaben relativ zur Bilanzsumme, XRD/AT), desto 
+höher ist seine Profitabilität (ROA), da F&E-Investitionen 
+firmenspezifische Wettbewerbsvorteile und Innovationskraft schaffen.
+- **H3:** H3: Ein höherer Verschuldungsgrad (gemessen als (DLTT+DLC)/SEQ) 
+steht in einem negativen Zusammenhang mit der Profitabilität (ROA), 
+da höhere Zinslasten den Unternehmensgewinn reduzieren.
 
 ## Data
 
@@ -31,19 +39,34 @@ Autor: Thomas Lackner (h12015529)
 | Sample | Börsennotierte Medizintechnik-Unternehmen (SIC 3841 & 3845) |
 | Zeitraum | 2015–2025 |
 | Analyseeinheit | Firm-year |
-| Raw rows     | 55                                  |
+| Raw rows     | 365.259                             |
 | Clean rows   | 55                                  |
 
 **Zentrale Variablen:**
 
-| Variable | Compustat-Feld(er) | Beschreibung |
-|----------|--------------------|--------------|
-| DOI (Internationalisierungsgrad) | `pifo / sale` | Anteil des im Ausland erzielten Einkommens (abhängige Variable) |
-| Firmengröße | `log(at)` | Logarithmierte Bilanzsumme (H1) |
-| F&E-Intensität | `xrd / at` | F&E-Ausgaben relativ zur Bilanzsumme (H2) |
-| ROA (Profitabilität) | `ib / at` | Return on Assets (H3) |
-| Leverage (Kontrollvariable) | `dltt / at` | Langfristige Verbindlichkeiten / Bilanzsumme |
-| Firmenalter (Kontrollvariable) | `fyear - inco` | Jahre seit Gründung |
+**Abhängige Variable (Y):**
+
+| Variable | Compustat-Feld(er) | Formel | Beschreibung |
+|----------|-------------------|--------|--------------|
+| Profitabilität (ROA) | `ib, at` | `ib / at` | Return on Assets |
+
+**Unabhängige Variablen (X):**
+
+| Variable | Compustat-Feld(er) | Formel | Beschreibung |
+|----------|-------------------|--------|--------------|
+| Firmengröße | `at` | `log(at)` | Logarithmierte Bilanzsumme (H1) |
+| F&E-Intensität | `xrd, at` | `xrd / at` | F&E-Ausgaben relativ zur Bilanzsumme (H2) |
+| Leverage | `dltt, dlc, seq` | `(dltt+dlc) / seq` | Verschuldungsgrad (H3) |
+
+**Kontrollvariablen:**
+
+| Variable | Compustat-Feld(er) | Formel | Beschreibung |
+|----------|-------------------|--------|--------------|
+| Umsatzwachstum | `sale` | `(sale_t - sale_t-1) / sale_t-1` | Wachstum beeinflusst Profitabilität |
+| Kapitalintensität | `capx, at` | `capx / at` | Investitionsintensität |
+| Liquidität | `che, at` | `che / at` | Cash-Bestand relativ zur Bilanzsumme |
+| Mitarbeiterzahl | `emp` | direkt | Alternative Größenmessung |
+| EBITDA-Marge | `ebitda, sale` | `ebitda / sale` | Operative Profitabilität |
 
 ## How to Reproduce
 
