@@ -17,17 +17,17 @@ Autor: Thomas Lackner (h12015529)
 
 ## Hypothesen
 
-- **H1:** Je größer ein Medizintechnikunternehmen (gemessen als 
-logarithmierte Bilanzsumme, log(AT)), desto höher ist seine 
-Profitabilität (ROA), da größere Unternehmen über mehr Ressourcen, 
-Skaleneffekte und Marktmacht verfügen.
-- **H2:** Je höher die F&E-Intensität eines Medizintechnikunternehmens 
-(gemessen als F&E-Ausgaben relativ zur Bilanzsumme, XRD/AT), desto 
-höher ist seine Profitabilität (ROA), da F&E-Investitionen 
-firmenspezifische Wettbewerbsvorteile und Innovationskraft schaffen.
-- **H3:** H3: Ein höherer Verschuldungsgrad (gemessen als (DLTT+DLC)/SEQ) 
-steht in einem negativen Zusammenhang mit der Profitabilität (ROA), 
-da höhere Zinslasten den Unternehmensgewinn reduzieren.
+- **H1:** Je höher die F&E-Intensität eines Medizintechnikunternehmens
+  (gemessen als F&E-Ausgaben relativ zur Bilanzsumme, XRD/AT), desto
+  höher ist seine Profitabilität (ROA), da F&E-Investitionen
+  firmenspezifische Wettbewerbsvorteile und Innovationskraft schaffen.
+- **H2:** Der positive Effekt von F&E-Intensität auf die Profitabilität
+  (ROA) ist bei größeren Unternehmen (log(AT)) stärker ausgeprägt,
+  da größere Firmen mehr Ressourcen und Kapazitäten besitzen, um
+  F&E-Investitionen erfolgreich zu verwerten (Moderator: Firmengröße).
+- **H3:** Ein höherer Verschuldungsgrad (gemessen als (DLTT+DLC)/SEQ)
+  steht in einem negativen Zusammenhang mit der Profitabilität (ROA),
+  da höhere Zinslasten den Unternehmensgewinn reduzieren.
 
 ## Data
 
@@ -40,7 +40,7 @@ da höhere Zinslasten den Unternehmensgewinn reduzieren.
 | Zeitraum | 2015–2025 |
 | Analyseeinheit | Firm-year |
 | Raw rows     | 365.259                             |
-| Clean rows   | 55                                  |
+| Clean rows   | 3.108                                 |
 
 **Zentrale Variablen:**
 

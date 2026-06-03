@@ -135,14 +135,14 @@ if not chunks:
 # -- Concatenate ---------------------------------------------------------------
 print("\nConcatenating chunks...")
 df = pd.concat(chunks, ignore_index=True)
-# Filter to our 5 Med-Tech firms
-TARGET_GVKEYS = ["326765", "208821", "238442", "101317", "221806"]
-df = df[df["gvkey"].astype(str).isin(TARGET_GVKEYS)].copy()
-print(f"Filtered to {df['gvkey'].nunique()} target firms")
-print(f"  Combined: {len(df):,} rows x {df.shape[1]} columns")
-
-# -- Standardize column names --------------------------------------------------
+# Standardize column names FIRST, then filter
 df.columns = [c.strip().lower().replace(" ", "_") for c in df.columns]
+
+
+# Filter to SIC 3841 & 3845
+if "sich" in df.columns:
+    df = df[df["sich"].astype(str).isin(["3841", "3845"])].copy()
+    print(f"Filtered to SIC 3841 & 3845: {df['gvkey'].nunique()} firms, {len(df):,} rows")
 
 # -- Drop exact duplicates -----------------------------------------------------
 n_before = len(df)
