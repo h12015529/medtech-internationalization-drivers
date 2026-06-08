@@ -5,29 +5,28 @@ Autor: Thomas Lackner (h12015529)
 
 ## Research Question
 
-> Welchen Einfluss haben Firmengröße und F&E-Intensität auf die Profitabilität (ROA) börsennotierter Medizintechnik-Unternehmen?
+> Welchen Einfluss hat der Verschuldungsgrad (Leverage)  auf die Profitabilität (ROA) börsennotierter Medizintechnik-Unternehmen und moderiert die Firmengröße diesen Zusammenhang?
 
 ## Theoretischer Hintergrund
 
-| Theorie | Kernaussage | Implikation für die Internationalisierung |
+| Theorie | Kernaussage | Implikation für die Hypothesen |
 |---------|-------------|--------------------------------------------|
-| Uppsala-Modell (Johanson & Vahlne 1977) | Internationalisierung verläuft als gradueller, ressourcenabhängiger Prozess | Größere Firmen verfügen über mehr Ressourcen, um diesen Prozess voranzutreiben |
-| OLI-Paradigma (Dunning 1988) | Internationalisierung beruht auf Ownership-, Location- und Internalization-Vorteilen | F&E schafft firmenspezifische Ownership-Vorteile, die Auslandsexpansion begünstigen |
-| Resource-based View (Barney 1991) | Wettbewerbsvorteile entstehen aus wertvollen, seltenen Ressourcen (VRIN) | Firmengröße und F&E-Bestand sind Ressourcen, die Internationalisierung ermöglichen |
+| Trade-off-Theorie (Kraus & Litzenberger 1973; Modigliani & Miller 1963) | Firmen wägen Steuervorteile von Fremdkapital gegen Kosten finanzieller Notlage ab | Jenseits eines Optimums senkt zusätzliche Verschuldung die Profitabilität (Zinslast, Distress) — Basis für H1 |
+| Pecking-Order-Theorie (Myers & Majluf 1984) | Firmen finanzieren bevorzugt intern; hohe externe Verschuldung geht mit geringerer Profitabilität einher | Stützt den negativen Leverage–ROA-Zusammenhang (H1) |
+| Resource-based View (Barney 1991) | Wettbewerbsvorteile entstehen aus wertvollen Ressourcen | Firmengröße ist eine Ressource (Debt Capacity, Skaleneffekte, geringeres Distress-Risiko), die den Leverage-Effekt abschwächt — Basis für H2 |
+
 
 ## Hypothesen
 
-- **H1:** Je höher die F&E-Intensität eines Medizintechnikunternehmens
-  (gemessen als F&E-Ausgaben relativ zur Bilanzsumme, XRD/AT), desto
-  höher ist seine Profitabilität (ROA), da F&E-Investitionen
-  firmenspezifische Wettbewerbsvorteile und Innovationskraft schaffen.
-- **H2:** Der positive Effekt von F&E-Intensität auf die Profitabilität
-  (ROA) ist bei größeren Unternehmen (log(AT)) stärker ausgeprägt,
-  da größere Firmen mehr Ressourcen und Kapazitäten besitzen, um
-  F&E-Investitionen erfolgreich zu verwerten (Moderator: Firmengröße).
-- **H3:** Ein höherer Verschuldungsgrad (gemessen als (DLTT+DLC)/SEQ)
-  steht in einem negativen Zusammenhang mit der Profitabilität (ROA),
-  da höhere Zinslasten den Unternehmensgewinn reduzieren.
+- **H1:** Ein höherer Verschuldungsgrad (gemessen als `dltt/at`) steht in einem
+  negativen Zusammenhang mit der Profitabilität (ROA), da eine steigende
+  Zinslast und ein höheres Financial-Distress-Risiko den laufenden
+  Unternehmensgewinn reduzieren.
+- **H2:** Die Firmengröße (`log(at)`) moderiert diesen Zusammenhang positiv:
+  Bei größeren Unternehmen fällt der negative Leverage-Effekt schwächer aus,
+  da sie über höhere Debt Capacity und ein geringeres Distress-Risiko
+  verfügen (Interaktion: `leverage × ln_at`).
+
 
 ## Data
 
@@ -40,7 +39,15 @@ Autor: Thomas Lackner (h12015529)
 | Zeitraum | 2015–2025 |
 | Analyseeinheit | Firm-year |
 | Raw rows     | 365.259                             |
-| Clean rows   | 3.108                                 |
+| Clean rows   | 3.108                               |
+| Analysesample     | 2.713 Firm-years / 352 Firmen  |
+
+**Hinweis zum Design (DOI):** Maße zur Internationalisierung (z. B. `pifo`,
+foreign income) sind in diesem Compustat-Global-Pull nicht verfügbar, und
+`rect/sale` erzeugt extreme Ausreißer. Die Fragestellung wurde daher auf
+firmeninterne Profitabilitätstreiber fokussiert. Als zentrale unabhängige
+Variable dient der Verschuldungsgrad — theoretisch gut fundiert in der
+Kapitalstrukturforschung und mit hoher Datenabdeckung verfügbar.
 
 **Zentrale Variablen:**
 
@@ -54,18 +61,17 @@ Autor: Thomas Lackner (h12015529)
 
 | Variable | Compustat-Feld(er) | Formel | Beschreibung |
 |----------|-------------------|--------|--------------|
-| Firmengröße | `at` | `log(at)` | Logarithmierte Bilanzsumme (H1) |
-| F&E-Intensität | `xrd, at` | `xrd / at` | F&E-Ausgaben relativ zur Bilanzsumme (H2) |
-| Leverage | `dltt, dlc, seq` | `(dltt+dlc) / seq` | Verschuldungsgrad (H3) |
+| Leverage | `dltt, at` | `dltt / at` | Haupt-X (H1) |
+| Firmengröße | `at` | `log(at)` | Moderator + Kontrolle (H2) |
+| Leverage × Größe | – | `leverage * ln_at` | H2-Interaktion |
 
 **Kontrollvariablen:**
 
 | Variable | Compustat-Feld(er) | Formel | Beschreibung |
 |----------|-------------------|--------|--------------|
-| Umsatzwachstum | `sale` | `(sale_t - sale_t-1) / sale_t-1` | Wachstum beeinflusst Profitabilität |
+| F&E-Intensität | `xrd, at` | `xrd.fillna(0) / at` | Innovationsaufwand relativ zur Bilanzsumme |
 | Kapitalintensität | `capx, at` | `capx / at` | Investitionsintensität |
 | Liquidität | `che, at` | `che / at` | Cash-Bestand relativ zur Bilanzsumme |
-| Mitarbeiterzahl | `emp` | direkt | Alternative Größenmessung |
 | EBITDA-Marge | `ebitda, sale` | `ebitda / sale` | Operative Profitabilität |
 
 ## How to Reproduce
@@ -92,6 +98,8 @@ task all
 # --- Oder einzelne Schritte ---
 task pull          # 01_pull_data.py    -> data/raw/
 task clean         # 02_clean.py        -> data/processed/
+task descriptives  # 03_descriptives.py -> output/tables/, output/figures/
+task regression    # 04_regression.py   -> output/tables/
 ```
 
 ## Project Structure
@@ -117,13 +125,21 @@ medtech-internationalization-drivers/
 ├── .gitignore
 └── README.md
 ```
+## Ergebnisse (Kurzfassung)
+
+- Höhere Verschuldung senkt die ROA signifikant (β = −0,26, p < 0,01, TWFE) —
+  **H1 bestätigt** (Zinslast und Financial-Distress-Risiko).
+- Die Firmengröße moderiert den Zusammenhang **nicht** signifikant
+  (Interaktion β = 0,01, p = 0,60) — **H2 nicht bestätigt**.
+- Der TWFE-Effekt ist ca. 25 % stärker als in der gepoolten OLS → Omitted-
+  Variable-Bias; Firm-Fixed-Effects sind notwendig (Hausman: FE vor RE).
 
 ## Literaturverzeichnis
 
 Barney, J. (1991). Firm Resources and Sustained Competitive Advantage. *Journal of Management*, 17(1), 99–120.
 
-Dunning, J. H. (1988). The Eclectic Paradigm of International Production: A Restatement and Some Possible Extensions. *Journal of International Business Studies*, 19(1), 1–31.
+Kraus, A., & Litzenberger, R. H. (1973). A State-Preference Model of Optimal Financial Leverage. *Journal of Finance*, 28(4), 911–922.
 
-Johanson, J., & Vahlne, J.-E. (1977). The Internationalization Process of the Firm — A Model of Knowledge Development and Increasing Foreign Market Commitments. *Journal of International Business Studies*, 8(1), 23–32.
+Modigliani, F., & Miller, M. H. (1963). Corporate Income Taxes and the Cost of Capital: A Correction. *American Economic Review*, 53(3), 433–443.
 
-Lu, J. W., & Beamish, P. W. (2001). The internationalization and performance of SMEs. *Strategic Management Journal*, 22(6–7), 565–586.
+Myers, S. C., & Majluf, N. S. (1984). Corporate Financing and Investment Decisions When Firms Have Information That Investors Do Not Have. *Journal of Financial Economics*, 13(2), 187–221.
