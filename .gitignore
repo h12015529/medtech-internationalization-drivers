@@ -1,6 +1,8 @@
 .venv/
-data/raw/
+data/
+output/
 .env
+.DS_Store
 references/*.pdf
 __pycache__/
 *.pyc
