@@ -1,6 +1,5 @@
 .venv/
 data/
-output/
 .env
 .DS_Store
 references/*.pdf
